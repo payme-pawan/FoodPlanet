@@ -1,0 +1,57 @@
+*{
+    margin: 0;
+    padding: 0;
+
+}
+
+.header{
+  margin: 5px;  
+  border: 2px solid black ;
+  display: flex;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  width: 99%;
+}
+
+.logo-img{
+    width: 80px;
+}
+
+.nav-bar{
+    display: flex;
+    justify-content: space-between;
+    padding-right: 20px;
+    align-items: center;
+}
+
+.nav-bar >li{
+  list-style-type: none;
+  padding: 5px;
+}
+
+.card{
+    width: 200px;
+    border: 1px solid black;
+    padding: 5px;
+    margin: 5px;
+    line-height: 2;
+    line-break: auto;
+    
+}
+
+
+.card img {
+    width: 100%;
+    border-radius: 10px;
+}
+
+.food-items{
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-around;
+    margin: 30px;
+}
+
+.card:hover{
+    cursor: pointer;
+}
