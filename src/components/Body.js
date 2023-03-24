@@ -1,6 +1,7 @@
 import { restaurantList } from "../config";
 import RestaurantCards from "./RestaurantCards";
 import { useState, useEffect } from "react";
+import { swiggy_api_URL } from "../config";
 
 
 const filterData = (searchText,restaurants) => {
@@ -13,8 +14,15 @@ const Body = () => {
     const [restaurants,setRestaurants] = useState(restaurantList);
     
     useEffect(()=> {
-     console.log("Hello There"); 
+     getRestaurants();
+      
     }, [])
+   
+   async function getRestaurants() {
+    const data = await fetch(swiggy_api_URL);
+    const json = await data.json();
+
+   }
 
   return (
     <>
