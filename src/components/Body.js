@@ -2,6 +2,7 @@ import { restaurantList } from "../config";
 import RestaurantCards from "./RestaurantCards";
 import { useState, useEffect } from "react";
 import { swiggy_api_URL } from "../config";
+import Shimmer from "./Shimmer";
 
 
 const filterData = (searchText,restaurants) => {
@@ -11,7 +12,8 @@ const filterData = (searchText,restaurants) => {
 const Body = () => {
     
     const [searchText,setSearchText] = useState("");
-    const [restaurants,setRestaurants] = useState(restaurantList);
+    const [allRestaurants,setAllRestaurants] = useState([]);
+    const [filteredRestaurants,setFilteredRestaurants] = useState([]);
     
     useEffect(()=> {
      getRestaurants();
@@ -22,7 +24,16 @@ const Body = () => {
     const data = await fetch(swiggy_api_URL);
     const json = await data.json();
 
+    setAllRestaurants(json?.data?.cards[2]?.data?.data?.cards);
+    setFilteredRestaurants(json?.data?.cards[2]?.data?.data?.cards);
+
    }
+
+  if(allRestaurants?.length === 0){
+    return <Shimmer />
+  } 
+
+
 
   return (
     <>
@@ -30,23 +41,29 @@ const Body = () => {
         <input type="text" placeholder="Search..." className="search-input" 
           value = {searchText}
           onChange = { (e) => setSearchText(e.target.value) }  
-        />
+        /> 
+        
         <button className="search-btn"  
          onClick={() => {
-            const data = filterData(searchText,restaurants)
-            setRestaurants(data);
+            const data = filterData(searchText,allRestaurants)
+            setFilteredRestaurants(data);
          } } 
         >
           Search
         </button>
       </div>
+      { filteredRestaurants?.length === 0 ? <h1> No restaurant match your search </h1> : 
+        
       <div className="food-items">
-        {restaurants.map((restaurant) => {
+        {filteredRestaurants.map((restaurant) => {
           return (
             <RestaurantCards key={restaurant.data.id} {...restaurant.data} />
           );
         })}
       </div>
+
+       }
+     
     </>
   );
 };
