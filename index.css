@@ -55,3 +55,8 @@
 .card:hover{
     cursor: pointer;
 }
+
+.error-handle{
+    text-align: center;
+    margin-top: 25%;
+}
